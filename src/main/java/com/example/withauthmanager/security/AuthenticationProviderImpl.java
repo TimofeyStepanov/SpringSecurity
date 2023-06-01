@@ -23,17 +23,10 @@ public class AuthenticationProviderImpl implements AuthenticationProvider {
         String password = String.valueOf(authentication.getCredentials());
 
         UserDetails userDetails = userDetailsService.loadUserByUsername(username);
-
-        if (userDetails != null) {
-            if (passwordEncoder.matches(password, userDetails.getPassword())){
-                UsernamePasswordAuthenticationToken authenticationToken =
-                        new UsernamePasswordAuthenticationToken(username, userDetails.getPassword(), userDetails.getAuthorities());
-                return authenticationToken;
-            } else {
-                throw new BadCredentialsException("Wrong token!");
-            }
+        if (passwordEncoder.matches(password, userDetails.getPassword())) {
+            return new UsernamePasswordAuthenticationToken(username, userDetails.getPassword(), userDetails.getAuthorities());
         }
-        throw new BadCredentialsException("Not such user!");
+        throw new BadCredentialsException("Wrong password in token!");
     }
 
     @Override

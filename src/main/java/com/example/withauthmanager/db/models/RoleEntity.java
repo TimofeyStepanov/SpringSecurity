@@ -1,4 +1,4 @@
-package com.example.withauthmanager.dataBase.models;
+package com.example.withauthmanager.db.models;
 
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -16,7 +16,7 @@ public class RoleEntity {
 
     @ManyToMany
     @JoinTable(
-            name="extra_table",
+            name="roles_authorities",
             joinColumns = @JoinColumn(name = "role_id"),
             inverseJoinColumns = @JoinColumn(name = "authority_id")
     )

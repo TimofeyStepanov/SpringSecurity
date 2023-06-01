@@ -1,6 +1,6 @@
 package com.example.withauthmanager.models;
 
-import com.example.withauthmanager.dataBase.models.AuthorityEntity;
+import com.example.withauthmanager.db.models.AuthorityEntity;
 import lombok.Data;
 
 import java.util.Set;

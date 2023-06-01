@@ -7,7 +7,6 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.AllArgsConstructor;
-import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -17,13 +16,12 @@ import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Component
 @AllArgsConstructor
 public class JwtTokenFilter extends OncePerRequestFilter {
     private JwtTokenService jwtTokenService;
-    private final String TOKEN_HEADER = "token";
+    private static final String TOKEN_HEADER = "token";
 
     @Override
     protected void doFilterInternal(HttpServletRequest request,
@@ -41,7 +39,7 @@ public class JwtTokenFilter extends OncePerRequestFilter {
             List<? extends GrantedAuthority> authorities = jwtTokenService.getAuthorities(token)
                     .stream()
                     .map(SimpleGrantedAuthority::new)
-                    .collect(Collectors.toList());
+                    .toList();
 
             UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(
                     userEmail,

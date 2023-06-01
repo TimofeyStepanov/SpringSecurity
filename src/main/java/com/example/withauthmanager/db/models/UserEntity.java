@@ -1,9 +1,7 @@
-package com.example.withauthmanager.dataBase.models;
+package com.example.withauthmanager.db.models;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
-import lombok.NonNull;
 import lombok.Setter;
 
 @Entity

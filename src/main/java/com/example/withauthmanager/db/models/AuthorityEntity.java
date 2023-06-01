@@ -1,11 +1,10 @@
-package com.example.withauthmanager.dataBase.models;
+package com.example.withauthmanager.db.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -20,7 +19,7 @@ public class AuthorityEntity {
     @JsonIgnore
     @ManyToMany
     @JoinTable(
-            name="extra_table",
+            name="roles_authorities",
             joinColumns = @JoinColumn(name = "authority_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id")
     )

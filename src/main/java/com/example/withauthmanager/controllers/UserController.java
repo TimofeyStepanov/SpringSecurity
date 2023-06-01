@@ -3,6 +3,7 @@ package com.example.withauthmanager.controllers;
 import com.example.withauthmanager.models.UserRequest;
 import com.example.withauthmanager.models.UserResponse;
 import com.example.withauthmanager.services.UserService;
+import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -15,17 +16,20 @@ public class UserController {
     }
 
     @PostMapping("/registration")
+    @Operation(summary = "Регистрация")
     public UserRequest register(@RequestBody UserRequest user) {
         return userService.register(user);
     }
 
-    @GetMapping("/login")
+    @PostMapping("/login")
+    @Operation(summary = "Авторизация")
     public String login(@RequestBody UserRequest user) {
         return userService.login(user.getEmail(), user.getPassword());
     }
 
     @GetMapping("/info")
-    public UserResponse getRole(@RequestBody UserRequest user) {
-        return userService.getUserRole(user.getEmail());
+    @Operation(summary = "Информация о пользователе")
+    public UserResponse getRole(@RequestParam String userEmail) {
+        return userService.getUserRole(userEmail);
     }
 }

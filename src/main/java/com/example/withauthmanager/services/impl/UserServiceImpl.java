@@ -1,16 +1,15 @@
 package com.example.withauthmanager.services.impl;
 
-import com.example.withauthmanager.dataBase.models.RoleEntity;
-import com.example.withauthmanager.dataBase.models.UserEntity;
-import com.example.withauthmanager.dataBase.repositories.RoleRepository;
-import com.example.withauthmanager.dataBase.repositories.UserRepository;
+import com.example.withauthmanager.db.models.RoleEntity;
+import com.example.withauthmanager.db.models.UserEntity;
+import com.example.withauthmanager.db.repositories.RoleRepository;
+import com.example.withauthmanager.db.repositories.UserRepository;
 import com.example.withauthmanager.models.UserRequest;
 import com.example.withauthmanager.models.UserResponse;
 import com.example.withauthmanager.services.JwtTokenService;
 import com.example.withauthmanager.services.UserService;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
-import org.springframework.boot.autoconfigure.neo4j.Neo4jProperties;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -18,11 +17,9 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
@@ -57,7 +54,7 @@ public class UserServiceImpl implements UserService {
         List<String> authoritiesString = authorities
                 .stream()
                 .map(GrantedAuthority::getAuthority)
-                .collect(Collectors.toList());
+                .toList();
 
         return jwtTokenService.createToken(email, authoritiesString);
     }
