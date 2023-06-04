@@ -20,26 +20,26 @@ public class DBCommandLineRunner {
     @Bean
     public CommandLineRunner dataLoader() {
         return args -> {
-            AuthorityEntity authorityEntityDelete = new AuthorityEntity();
-            authorityEntityDelete.setId(1L);
-            authorityEntityDelete.setAuthorityValue("DELETE");
-            authorityRepository.save(authorityEntityDelete);
+            AuthorityEntity authorityEntityUpdate = new AuthorityEntity();
+            authorityEntityUpdate.setId(1L);
+            authorityEntityUpdate.setAuthorityValue("UPDATE_AUTHORITY");
+            authorityRepository.save(authorityEntityUpdate);
 
-            AuthorityEntity authorityEntityRead = new AuthorityEntity();
-            authorityEntityRead.setId(2L);
-            authorityEntityRead.setAuthorityValue("READ");
-            authorityRepository.save(authorityEntityRead);
+            AuthorityEntity authorityEntityDelete = new AuthorityEntity();
+            authorityEntityDelete.setId(2L);
+            authorityEntityDelete.setAuthorityValue("DELETE_AUTHORITY");
+            authorityRepository.save(authorityEntityDelete);
 
             RoleEntity roleEntityUser = new RoleEntity();
             roleEntityUser.setId(1L);
-            roleEntityUser.setRoleValue("USER");
-            roleEntityUser.setAuthorityEntityList(Set.of(authorityEntityRead));
+            roleEntityUser.setRoleValue("ROLE_USER");
+            roleEntityUser.setAuthorityEntityList(Set.of(authorityEntityUpdate));
             roleRepository.save(roleEntityUser);
 
             RoleEntity roleEntityAdmin = new RoleEntity();
             roleEntityAdmin.setId(2L);
-            roleEntityAdmin.setRoleValue("ADMIN");
-            roleEntityAdmin.setAuthorityEntityList(Set.of(authorityEntityDelete, authorityEntityRead));
+            roleEntityAdmin.setRoleValue("ROLE_ADMIN");
+            roleEntityAdmin.setAuthorityEntityList(Set.of(authorityEntityUpdate, authorityEntityDelete));
             roleRepository.save(roleEntityAdmin);
         };
     }

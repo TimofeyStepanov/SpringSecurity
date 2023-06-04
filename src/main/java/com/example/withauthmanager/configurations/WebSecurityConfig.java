@@ -38,7 +38,8 @@ public class WebSecurityConfig {
                 .sessionManagement().disable()
                 .authorizeHttpRequests()
                 .requestMatchers(SWAGGER_AUTH_WHITELIST).permitAll()
-                .requestMatchers("/api/admin/*").hasAuthority("DELETE")
+                //.requestMatchers("/api/admin/*").hasAuthority("DELETE_AUTHORITY")
+                .requestMatchers("/api/admin/*").hasRole("ADMIN")
                 .requestMatchers("/api/user/*").permitAll()
                 .anyRequest().authenticated();
 

@@ -11,7 +11,7 @@ import java.util.List;
 
 @Service
 public class JwtTokenServiceImp implements JwtTokenService {
-    private static final Algorithm algorithm = Algorithm.HMAC256(String.valueOf(Math.random()).getBytes());
+    private static final Algorithm algorithm = Algorithm.HMAC256("secret");
     private static final JWTVerifier jwtVerifier = JWT.require(algorithm).build();
 
     @Override

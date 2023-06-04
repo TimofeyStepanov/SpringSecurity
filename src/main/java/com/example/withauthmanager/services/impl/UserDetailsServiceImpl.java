@@ -14,6 +14,7 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Component
 @AllArgsConstructor
@@ -25,12 +26,13 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         Optional<UserEntity> userOptional = userRepository.findUserEntityByEmail(userEmail);
         UserEntity user = userOptional.orElseThrow(() -> new UsernameNotFoundException("No user with such email!"));
 
-        Set<AuthorityEntity> authorityEntityList = user.getRole_id().getAuthorityEntityList();
+        Set<AuthorityEntity> authorityEntityList = user.getRole().getAuthorityEntityList();
 
         List<SimpleGrantedAuthority> authorityList = authorityEntityList
                 .stream()
                 .map(authorityEntity -> new SimpleGrantedAuthority(authorityEntity.getAuthorityValue()))
-                .toList();
+                .collect(Collectors.toList());
+        authorityList.add(new SimpleGrantedAuthority(user.getRole().getRoleValue()));
 
         return new User(
                 user.getEmail(),

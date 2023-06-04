@@ -39,7 +39,7 @@ public class UserServiceImpl implements UserService {
 
         Optional<RoleEntity> roleOptional = roleRepository.findById(RoleRepository.ID_OF_DEFAULT_ROLE);
         RoleEntity role = roleOptional.orElseThrow(() -> new IllegalArgumentException("Can't get default role"));
-        userEntity.setRole_id(role);
+        userEntity.setRole(role);
 
         userRepository.save(userEntity);
         return mapper.map(userEntity, UserRequest.class);
@@ -67,7 +67,7 @@ public class UserServiceImpl implements UserService {
 
         UserResponse userResponse = mapper.map(user, UserResponse.class);
 
-        RoleEntity roleEntity = user.getRole_id();
+        RoleEntity roleEntity = user.getRole();
         userResponse.setAuthorityEntityList(roleEntity.getAuthorityEntityList());
         return userResponse;
     }
